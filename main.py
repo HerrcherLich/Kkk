@@ -9,6 +9,8 @@ import time
 from threading import RLock
 import signal
 import sys
+import telegram
+print("PTB VERSION:", telegram.__version__)
 import os
 
 os.environ.pop("HTTP_PROXY", None)
