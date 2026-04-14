@@ -877,7 +877,7 @@ async def addoffice(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
     chat_title = update.effective_chat.title or "Без названия"
 
-    if False:
+    if user_id not in admins:
         await update.message.reply_text("⛔ Только администраторы могут добавлять офисы!")
         return
 
@@ -904,7 +904,7 @@ async def removeoffice(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
     chat_title = update.effective_chat.title or "Без названия"
 
-    if False:
+    if user_id not in admins:
         await update.message.reply_text("⛔ Только администраторы могут удалять офисы!")
         return
 
@@ -926,7 +926,7 @@ async def offices_list(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     user_id = query.from_user.id
 
-    if False:
+    if user_id not in admins:
         await query.answer("⛔ Доступ запрещен!", show_alert=True)
         return
 
@@ -955,7 +955,7 @@ async def delete_office_callback(update: Update, context: ContextTypes.DEFAULT_T
     query = update.callback_query
     user_id = query.from_user.id
 
-    if False:
+    if user_id not in admins:
         await query.answer("⛔ Доступ запрещен!", show_alert=True)
         return
 
@@ -977,7 +977,7 @@ async def delete_office_callback(update: Update, context: ContextTypes.DEFAULT_T
 # ================= БАН =================
 async def ban(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
-    if False:
+    if user_id not in admins:
         await update.message.reply_text("⛔ У вас нет прав на эту команду!")
         return
 
@@ -1013,7 +1013,7 @@ async def ban(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def unban(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
-    if False:
+    if user_id not in admins:
         await update.message.reply_text("⛔ У вас нет прав на эту команду!")
         return
 
@@ -1046,7 +1046,7 @@ async def unban(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def banlist(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
-    if False:
+    if user_id not in admins:
         await update.message.reply_text("⛔ У вас нет прав на эту команду!")
         return
 
@@ -1107,7 +1107,7 @@ async def broadcast_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     user_id = query.from_user.id
 
-    if False:
+    if user_id not in admins:
         await query.answer("⛔ Доступ запрещен!", show_alert=True)
         return
 
@@ -1159,7 +1159,7 @@ async def handle_private(update: Update, context: ContextTypes.DEFAULT_TYPE):
         user_id = update.message.from_user.id
         text = update.message.text.strip()
 
-        if False:
+        if user_id not in admins:
             in_waiting = (
                 user_id in waiting_for_number
                 or user_id in waiting_for_broadcast
@@ -1551,7 +1551,7 @@ async def callbacks(update: Update, context: ContextTypes.DEFAULT_TYPE):
             return
 
         if data == "auto_report":
-            if False:
+            if user_id not in admins:
                 await query.answer("⛔ Доступ запрещен!", show_alert=True)
                 return
             await query.answer()
@@ -1577,7 +1577,7 @@ async def callbacks(update: Update, context: ContextTypes.DEFAULT_TYPE):
             return
 
         if data == "manage_tariffs":
-            if False:
+            if user_id not in admins:
                 await query.answer("⛔ Доступ запрещен!", show_alert=True)
                 return
             await query.answer()
@@ -1589,7 +1589,7 @@ async def callbacks(update: Update, context: ContextTypes.DEFAULT_TYPE):
             return
 
         if data.startswith("edit_tariff_"):
-            if False:
+            if user_id not in admins:
                 await query.answer("⛔ Доступ запрещен!", show_alert=True)
                 return
             tariff_id = data.replace("edit_tariff_", "")
@@ -1612,7 +1612,7 @@ async def callbacks(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         for prefix, field in edit_fields.items():
             if data.startswith(prefix):
-                if False:
+                if user_id not in admins:
                     await query.answer("⛔ Доступ запрещен!", show_alert=True)
                     return
                 tariff_id = data.replace(prefix, "")
@@ -1626,7 +1626,7 @@ async def callbacks(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 return
 
         if data.startswith("toggle_tariff_"):
-            if False:
+            if user_id not in admins:
                 await query.answer("⛔ Доступ запрещен!", show_alert=True)
                 return
             tariff_id = data.replace("toggle_tariff_", "")
@@ -1644,7 +1644,7 @@ async def callbacks(update: Update, context: ContextTypes.DEFAULT_TYPE):
             return
 
         if data == "edit_welcome":
-            if False:
+            if user_id not in admins:
                 await query.answer("⛔ Доступ запрещен!", show_alert=True)
                 return
             waiting_for_welcome_text.add(user_id)
@@ -1658,7 +1658,7 @@ async def callbacks(update: Update, context: ContextTypes.DEFAULT_TYPE):
             return
 
         if data == "reset_welcome":
-            if False:
+            if user_id not in admins:
                 await query.answer("⛔ Доступ запрещен!", show_alert=True)
                 return
             welcome_text = DEFAULT_WELCOME_TEXT
@@ -1714,7 +1714,7 @@ async def callbacks(update: Update, context: ContextTypes.DEFAULT_TYPE):
             return
 
         if data == "admin_panel":
-            if False:
+            if user_id not in admins:
                 await query.answer("⛔ Доступ запрещен!", show_alert=True)
                 return
             await query.answer()
@@ -1723,14 +1723,14 @@ async def callbacks(update: Update, context: ContextTypes.DEFAULT_TYPE):
             return
 
         if data == "broadcast":
-            if False:
+            if user_id not in admins:
                 await query.answer("⛔ Доступ запрещен!", show_alert=True)
                 return
             await broadcast_message(update, context)
             return
 
         if data == "tariff_stats":
-            if False:
+            if user_id not in admins:
                 await query.answer("⛔ Доступ запрещен!", show_alert=True)
                 return
             await query.answer()
@@ -1741,7 +1741,7 @@ async def callbacks(update: Update, context: ContextTypes.DEFAULT_TYPE):
             return
 
         if data == "full_stats":
-            if False:
+            if user_id not in admins:
                 await query.answer("⛔ Доступ запрещен!", show_alert=True)
                 return
             await query.answer()
@@ -1752,7 +1752,7 @@ async def callbacks(update: Update, context: ContextTypes.DEFAULT_TYPE):
             return
 
         if data == "hold_management":
-            if False:
+            if user_id not in admins:
                 await query.answer("⛔ Доступ запрещен!", show_alert=True)
                 return
             await query.answer()
@@ -1763,7 +1763,7 @@ async def callbacks(update: Update, context: ContextTypes.DEFAULT_TYPE):
             return
 
         if data == "set_hold_time":
-            if False:
+            if user_id not in admins:
                 await query.answer("⛔ Доступ запрещен!", show_alert=True)
                 return
             waiting_for_hold_time[user_id] = True
@@ -1776,7 +1776,7 @@ async def callbacks(update: Update, context: ContextTypes.DEFAULT_TYPE):
             return
 
         if data == "hold_report":
-            if False:
+            if user_id not in admins:
                 await query.answer("⛔ Доступ запрещен!", show_alert=True)
                 return
             await query.answer()
@@ -1787,7 +1787,7 @@ async def callbacks(update: Update, context: ContextTypes.DEFAULT_TYPE):
             return
 
         if data == "error_report":
-            if False:
+            if user_id not in admins:
                 await query.answer("⛔ Доступ запрещен!", show_alert=True)
                 return
             await query.answer()
@@ -1798,7 +1798,7 @@ async def callbacks(update: Update, context: ContextTypes.DEFAULT_TYPE):
             return
 
         if data == "add_hold_time":
-            if False:
+            if user_id not in admins:
                 await query.answer("⛔ Доступ запрещен!", show_alert=True)
                 return
             await query.answer()
@@ -1834,7 +1834,7 @@ async def callbacks(update: Update, context: ContextTypes.DEFAULT_TYPE):
             await query.answer(f"⏱ Текущее время отстоя: {current_time} минут", show_alert=True)
             return
 
-        if False:
+        if user_id not in admins:
             await query.answer("⛔ Доступ запрещен!", show_alert=True)
             return
 
@@ -2069,49 +2069,7 @@ async def post_init(app: Application):
         job_queue.run_repeating(cleanup_numbers, interval=CLEANUP_INTERVAL, first=60)
         logger.info("✅ Периодические задачи запущены")
 
-def main():
-    if not BOT_TOKEN or BOT_TOKEN == "PASTE_NEW_TOKEN_HERE":
-        raise ValueError("Вставь новый BOT_TOKEN")
-
-    print("🚀 Запуск бота...")
-    load_data()
-
-    app = (
-        Application.builder()
-        .token(BOT_TOKEN)
-        .post_init(post_init)
-        .build()
-    )
-
-    app.add_handler(CommandHandler("start", start))
-    app.add_handler(CommandHandler("submit", submit))
-    app.add_handler(CommandHandler("queue", queue))
-    app.add_handler(CommandHandler("numbers", numbers_command))
-    app.add_handler(CommandHandler("support", support))
-    app.add_handler(CommandHandler("set", set_command))
-    app.add_handler(CommandHandler("addoffice", addoffice))
-    app.add_handler(CommandHandler("removeoffice", removeoffice))
-    app.add_handler(CommandHandler("cancel", cancel))
-    app.add_handler(CommandHandler("ban", ban))
-    app.add_handler(CommandHandler("unban", unban))
-    app.add_handler(CommandHandler("banlist", banlist))
-
-    app.add_handler(CallbackQueryHandler(callbacks))
-    app.add_handler(MessageHandler(filters.ChatType.PRIVATE & filters.TEXT, handle_private))
-    app.add_handler(MessageHandler(filters.ChatType.PRIVATE & filters.PHOTO, handle_photo))
-    app.add_handler(MessageHandler(filters.ChatType.GROUPS & (filters.TEXT | filters.PHOTO), handle_group))
-
-    app.add_error_handler(error_handler)
-
-    print("""
-╔═══════════════════════════════════════════════╗
-║           🤖 БОТ ЗАПУЩЕН!                     ║
-║                                               ║
-║  ✅ Автосохранение каждые 5 минут             ║
-║  ✅ Очистка старых номеров каждый час         ║
-║  ✅ Анти-спам 3 секунды                       ║
-║  ✅ Таймауты увеличены до 120 секунд          ║
-╚═══════════════════════════════════════════════╝""")
+# ================= AUTO REPORT =================
 async def get_auto_report_text() -> str:
     with data_lock:
         report_lines = []
@@ -2178,6 +2136,7 @@ async def get_auto_report_text() -> str:
 
         return "\n".join(report_lines) if report_lines else "Нет данных для отчета"
 
+# ================= MAIN =================
 def main():
     if not BOT_TOKEN or BOT_TOKEN == "PASTE_NEW_TOKEN_HERE":
         raise ValueError("Вставь новый BOT_TOKEN")
@@ -2215,6 +2174,11 @@ def main():
     print("""
 ╔═══════════════════════════════════════════════╗
 ║           🤖 БОТ ЗАПУЩЕН!                     ║
+║                                               ║
+║  ✅ Автосохранение каждые 5 минут             ║
+║  ✅ Очистка старых номеров каждый час         ║
+║  ✅ Анти-спам 3 секунды                       ║
+║  ✅ Таймауты увеличены до 120 секунд          ║
 ╚═══════════════════════════════════════════════╝""")
 
     app.run_polling(
@@ -2232,38 +2196,3 @@ if __name__ == "__main__":
         print(f"💥 Ошибка: {e}")
         import traceback
         traceback.print_exc()
-
-async def set_topic(update, context):
-    chat_id = update.effective_chat.id
-    topic_id = update.effective_message.message_thread_id or 0
-    with data_lock:
-        if chat_id not in topic_settings:
-            topic_settings[chat_id] = {}
-        topic_settings[chat_id][topic_id] = {"enabled": True}
-    safe_save_data()
-    await update.message.reply_text("Тема привязана")
-
-async def unset_topic(update, context):
-    chat_id = update.effective_chat.id
-    topic_id = update.effective_message.message_thread_id or 0
-    with data_lock:
-        if chat_id in topic_settings and topic_id in topic_settings[chat_id]:
-            del topic_settings[chat_id][topic_id]
-    safe_save_data()
-    await update.message.reply_text("Тема отвязана")
-
-def get_auto_report_keyboard():
-    from telegram import InlineKeyboardButton, InlineKeyboardMarkup
-    return InlineKeyboardMarkup([[InlineKeyboardButton("🔄 Обновить", callback_data="refresh_auto_report")]])
-
-async def get_today_auto_report():
-    today = datetime.now().date()
-    text = "📊 Автоотчет за сегодня\n\n"
-    total = 0
-    for num, info in number_status.items():
-        tm = info.get("time")
-        if isinstance(tm, datetime) and tm.date() == today:
-            total += 1
-            text += f"• {format_number(num)} - {info.get('status')}\n"
-    text += f"\nВсего: {total}"
-    return text
