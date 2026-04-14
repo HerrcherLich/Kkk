@@ -2,5 +2,10 @@ services:
   - type: worker
     name: telegram-bot
     runtime: python
-    buildCommand: pip install -r requirements.txt
+    buildCommand: |
+      rm -rf .venv
+      python3.11 -m venv .venv
+      . .venv/bin/activate
+      pip install --upgrade pip
+      pip install python-telegram-bot==20.7
     startCommand: python main.py
